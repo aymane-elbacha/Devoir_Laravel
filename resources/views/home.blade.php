@@ -14,7 +14,7 @@
             <a href="/books"><img src="/img/library.png" width="175" height="175"></a>
         </td>
         <td>
-            <img src="img/administrator.png" width="175" height="175">
+            <a href="/administrators"><img src="/img/administrator.png" width="175" height="175"></a>
         </td>
     </tr>
 </table>
