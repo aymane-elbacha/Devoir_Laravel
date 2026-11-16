@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/students', [StudentController::class, 'index']);
+Route::resource('students', StudentController::class)->except(['show']);
