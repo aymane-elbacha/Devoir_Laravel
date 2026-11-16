@@ -6,7 +6,7 @@
             <a href="/students"><img src="/img/student.jpg" width="175" height="175"></a>
         </td>
         <td>
-            <img src="img/teacher.png" width="175" height="175">
+            <a href="/teachers"><img src="/img/teacher.png" width="175" height="175"></a>
         </td>
     </tr>
     <tr>
