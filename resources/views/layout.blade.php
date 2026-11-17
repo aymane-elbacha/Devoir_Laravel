@@ -144,6 +144,17 @@
             School Management !
           </div>
           <div class="card-body">
+            <div style="margin:10px;">
+                  @auth
+                      <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                          @csrf
+                          <button type="submit">Déconnexion ({{ Auth::user()->name }})</button>
+                      </form>
+                  @else
+                      <a href="{{ route('login') }}">Connexion</a> |
+                      <a href="{{ route('register') }}">Inscription</a>
+                  @endauth
+            </div>
 
             <div class="container">
               @yield('content')
