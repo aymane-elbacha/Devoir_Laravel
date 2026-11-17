@@ -1,9 +1,6 @@
 <?php
 
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\AdministratorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,9 +13,6 @@ Route::get('/home', function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('students', StudentController::class);
-    Route::resource('teachers', TeacherController::class)->except(['show']);
-    Route::resource('books', BookController::class)->except(['show']);
-    Route::resource('administrators', AdministratorController::class)->except(['show']);
 });
 
 Route::get('/dashboard', function () {
