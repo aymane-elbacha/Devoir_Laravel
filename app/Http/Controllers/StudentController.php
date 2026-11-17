@@ -10,54 +10,61 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
-        return view('students', compact('students'));
+        return view('index', compact('students'));
     }
 
     public function create()
     {
-        return view('student_create');
+        return view('create');
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'nom' => 'required',
-            'prenom' => 'required',
-            'email' => 'required|email|unique:students,email',
-            'photo' => 'nullable|image',
+        $validateData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|max:255|unique:students,email',
+            'phone' => 'required',
+            'section' => 'required',
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif,svg',
         ]);
 
-        if ($request->hasFile('photo')) {
-            $name = time() . '_' . $request->file('photo')->getClientOriginalName();
-            $request->file('photo')->move(public_path('image'), $name);
-            $data['photo'] = $name;
-        }
+        $image = $request->file('image');
+        $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        $image->move(public_path('image'), $profileImage);
+        $validateData['image'] = $profileImage;
 
-        Student::create($data);
+        Student::create($validateData);
         return redirect('/students');
+    }
+
+    public function show(Student $student)
+    {
+        return view('show', compact('student'));
     }
 
     public function edit(Student $student)
     {
-        return view('student_edit', compact('student'));
+        return view('edit', compact('student'));
     }
 
     public function update(Request $request, Student $student)
     {
-        $data = $request->validate([
-            'nom' => 'required',
-            'prenom' => 'required',
-            'email' => 'required|email|unique:students,email,' . $student->id,
-            'photo' => 'nullable|image',
+        $validateData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|max:255|unique:students,email,' . $student->id,
+            'phone' => 'required',
+            'section' => 'required',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg',
         ]);
 
-        if ($request->hasFile('photo')) {
-            $name = time() . '_' . $request->file('photo')->getClientOriginalName();
-            $request->file('photo')->move(public_path('image'), $name);
-            $data['photo'] = $name;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move(public_path('image'), $profileImage);
+            $validateData['image'] = $profileImage;
         }
 
-        $student->update($data);
+        $student->update($validateData);
         return redirect('/students');
     }
 

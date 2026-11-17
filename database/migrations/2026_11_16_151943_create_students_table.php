@@ -13,12 +13,15 @@ class CreateStudentsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('students');
+
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('prenom');
+            $table->string('name');
             $table->string('email')->unique();
-            $table->string('photo')->nullable();
+            $table->string('phone');
+            $table->string('section');
+            $table->string('image');
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ Route::get('/home', function () {
 })->middleware('auth');
 
 Route::middleware('auth')->group(function () {
-    Route::resource('students', StudentController::class)->except(['show']);
+    Route::resource('students', StudentController::class);
     Route::resource('teachers', TeacherController::class)->except(['show']);
     Route::resource('books', BookController::class)->except(['show']);
     Route::resource('administrators', AdministratorController::class)->except(['show']);
